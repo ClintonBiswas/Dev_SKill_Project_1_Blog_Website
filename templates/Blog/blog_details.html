@@ -1,0 +1,92 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Blog details
+{% endblock title %}
+    
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card mb-3">
+                    <img src="{{blog.blog_image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">{{blog.created}}</p>
+                      <h5 class="card-title">{{blog.title}}</h5>
+                      <p class="card-text">{{blog.description|linebreaks}}</p>
+                      <h6 class="card-title">Share & Like</h6>
+                      <a href="#" class="card-link"><i class="bi bi-share-fill"></i></a>
+                      <a href="#" class="card-link"><i class="bi bi-heart-fill"></i></a>
+                      <a href="#" class="card-link text-decoration-none"><i class="bi bi-chat-dots"></i>&nbsp;{{blog.user_blog.count}}</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="d-grid gap-2 mb-2">
+                    <button class="btn btn-warning" type="button">Recent Blogs</button>
+                  </div>
+                  
+                  {% for blogs in blog_list|slice:"3" %}
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{blogs.blog_image.url}}" class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                            <a href="{% url 'blog:blog_details' slug=blogs.slug %}" class="card-title text-decoration-none">{{blogs.title|slice:50}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                    
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-sm-8">
+                <div class="mt-3">
+                    <h3>Comments:</h3>
+                    <hr>
+                    <div class="mt-3">
+                     
+                        <div class="row">
+                          
+                          <div class="col-sm-5 col-md-6 col-12 pb-2">
+                            {% for comment in blog.user_blog.all %}
+                            <div class="comment text-justify float-left">
+                              
+                              {% if comment.user.user_name.profile_pic %}
+                              <img src="{{comment.user.user_name.profile_pic.url}}" alt="" class="rounded-circle" width="40" height="40">
+                              {% else %}
+                              <img src="/media/vc.jpg" alt="" class="rounded-circle" width="40" height="40">
+                              {% endif %}
+                                
+            
+                              <a href="#">{{comment.user.username}}</a>
+                              <span>- {{comment.created}}</span>
+                              <br>
+                              <p>{{comment.text}}</p>
+                          </div>
+                          {% endfor %}
+                          </div>
+                          
+                        </div>
+                         
+                    </div>
+                </div>
+                <div class="mt-3 mb-5">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <button class="btn btn-success">Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

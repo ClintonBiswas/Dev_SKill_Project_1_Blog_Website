@@ -1,0 +1,59 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Post a blog
+{% endblock title %}
+    
+
+{% block content %}
+
+
+<!--Login--> 
+<div class="container py-5">
+
+  <h1 class="text-center mb-3" style="color: gray;">Write a blog</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-primary btn-block" type="submit">Post Here</button>
+  </form>
+ 
+</div>
+<!-- <div class="container py-5 justify-content-center">
+  <h1 class="text-center mb-3" style="color: gray;">Write a blog</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="title">
+        <label for="floatingInput">Blog Title</label>
+        <p class="text-danger py-1">{{form.title.errors}}</p>
+      </div>
+    <div class="mb-3">
+        <select class="form-select" aria-label="Default select example" name="category">
+            <option selected>Select A Category</option>
+            
+            {% for category in category_list %}
+            <option value={{category.id}}>{{category.title}}</option>
+            {% endfor %}
+                
+          </select>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="description"></textarea>
+        <label for="floatingTextarea">Description</label>
+        <p class="text-danger py-1">{{form.description.errors}}</p>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Choose a Blog Image</label>
+        <input class="form-control" type="file" id="formFile" name="blog_image">
+        <p class="text-danger py-1">{{form.blog_image.errors}}</p>
+      </div>
+
+    <button class="btn btn-primary btn-block mt-3" type="submit">Post Here</button>
+  </form>
+</div> -->
+{% endblock content %}
+    
+    

@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+    Home
+{% endblock title %}
+    
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-sm-4">
+            <h5 class="text-center mb-3" style="color: rgb(61, 60, 60);">Category List</h5>
+            <ul class="list-group">
+                
+                {% for category in category_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'blog:blog-category' pk=category.id%}" class="text-decoration-none">{{category.title}}</a>
+                    <span class="badge bg-warning rounded-pill" style="color: black;">{{category.category_blog.count}}</span>
+                  </li>
+                {% endfor %}
+                    
+              </ul>
+        </div>
+        <div class="col-sm-8">
+            <h5 class="text-center mb-3" style="color: rgb(61, 60, 60);">Our Blogs</h5>
+            <div class="row">
+                {% for blog in blogs %}
+                <div class="col-sm-4 mb-2">
+                    <div class="card">
+                        <img src="{{blog.blog_image.url}}" class="card-img-top" alt="{{blog.title}}">
+                        <div class="card-body">
+                          <h5 class="card-title">author: <a href="" class="text-decoration-none" style="color:darkgrey">{{blog.user}}</a></h5>
+                          <a href="{% url 'blog:blog_details' slug=blog.slug %}" class="text-decoration-none">{{blog.title|slice:50}}</a>
+                          
+                        </div>
+                      </div>        
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+            
+    </div>
+{% endblock content %}
+    

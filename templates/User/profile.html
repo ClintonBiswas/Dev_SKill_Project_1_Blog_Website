@@ -1,0 +1,57 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Profile
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+  <div style="height: 200px; width: auto; background-color: bisque; border-radius: 5px;"></div>
+  <div class="shadow" style="height: auto;">
+      
+      <div style="margin-left: 25px; line-height: 7px;">
+          
+          {% if data.profile_pic %}
+          <img src="{{data.profile_pic.url}}" alt="profile-pic" class="img-thumbnail" style="height: 200px; width: 200px; border-radius: 50%; margin-top: -7%;">
+          {% else %}
+          <img src="/media/vc.jpg" alt="" class="img-thumbnail" style="height: 200px; width: 200px; border-radius: 50%; margin-top: -7%;">
+          {% endif %}
+          <h3>{{data.name}} &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="badge bg-secondary text-decoration-none">Edit Profile</a></h3>
+          <p>{{data.user.email}}</p>
+          <p>{{data.location}}</p>
+          <p style="line-height: 20px;">{{data.bio|slice:250}}...</p>
+          <br>
+          </div>
+      
+  </div>
+  <div class="text-center mt-3">
+    <h3 style="font-size: larger; color: grey;">My Blogs</h3>
+    <hr>
+    <div class="row">
+      
+      {% for blog in blog_list %}
+        <div class="col-sm-12">
+          <div class="card mb-3" style="max-height: 180px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{blog.blog_image.url}}" class="img-fluid rounded-start" alt="..." style="max-height: 180px; width: 100%;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <a href="{% url 'blog:blog_details' slug=blog.slug %}" class="card-title" style="font-size: larger; color: rgb(24, 21, 21); font-weight: 800;">{{blog.title|slice:100}}</a>
+                  <p class="card-text">{{blog.description|slice:350}} ...</p>
+                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+        
+    </div>
+  </div>
+</div>
+{% endblock content %}
+    
