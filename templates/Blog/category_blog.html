@@ -12,9 +12,9 @@
     {% for blog in blog_list %}
     <div class="col-sm-4 mb-2">
         <div class="card">
-            <img src="{{blog.blog_image.url}}" class="card-img-top" alt="{{blog.title}}">
+            <img src="{{blog.blog_image.url}}" class="card-img-top" alt="{{blog.title}}" height="270px">
             <div class="card-body">
-              <h5 class="card-title">author: <a href="" class="text-decoration-none" style="color:darkgrey">{{blog.user}}</a></h5>
+                <h5 class="card-title"><i class="bi bi-vector-pen"></i> <a href="" class="text-decoration-none" style="color:#C0C0C0">{{blog.user}}</a></h5>
               <a href="{% url 'blog:blog_details' slug=blog.slug %}" class="text-decoration-none">{{blog.title|slice:50}}</a>
               
             </div>
