@@ -8,3 +8,4 @@ Project Feature:
 • Login Functionality
 • Forget Password Functionality
 • Comment System
+. User can create own profile
